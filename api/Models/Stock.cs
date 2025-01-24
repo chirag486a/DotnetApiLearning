@@ -19,6 +19,9 @@ namespace api.Models
         [Column(TypeName = "decimal(18, 2)")]
         public decimal LastDiv { get; set; }
         public string Industry { get; set; } = string.Empty;
+
+        [Column(TypeName = "decimal(28, 2)")] // Increased precision
+
         public decimal MarketCap { get; set; }
         public List<Comment> Comments { get; set; } = new List<Comment>();
     }
