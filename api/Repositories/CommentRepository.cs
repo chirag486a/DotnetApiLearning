@@ -23,5 +23,11 @@ namespace api.Repositories
             var comments = await _context.Comments.ToListAsync();
             return comments.Select(c => c.ToCommentDto()).ToList();
         }
+        public async Task<CommentDto?> GetAsync(int id)
+        {
+            var comment = await _context.Comments.FirstOrDefaultAsync(c => c.Id == id);
+            if (comment == null) return null;
+            return comment.ToCommentDto();
+        }
     }
 }

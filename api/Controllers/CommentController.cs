@@ -25,12 +25,21 @@ namespace api.Controllers
         public async Task<IActionResult> GetAll()
         {
             var comments = await _commentRepo.GetAllAsync();
-            if (comments.Count == 0 || comments == null)
+            if (comments.Count == 0)
             {
                 return NoContent();
             }
 
             return Ok(comments);
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetById([FromRoute] int id)
+        {
+            var comment = await _commentRepo.GetAsync(id);
+            if (comment == null) return NotFound();
+            return Ok(comment);
         }
 
     }

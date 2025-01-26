@@ -10,5 +10,6 @@ namespace api.Interfaces.Repositories
     public interface ICommentRepository
     {
         public Task<List<CommentDto>> GetAllAsync();
+        public Task<CommentDto?> GetAsync(int id);
     }
 }
