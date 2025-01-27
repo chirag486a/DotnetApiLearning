@@ -11,5 +11,8 @@ namespace api.Interfaces.Repositories
     {
         public Task<List<CommentDto>> GetAllAsync();
         public Task<CommentDto?> GetAsync(int id);
+        public Task<CommentDto> CreateAsync(CreateCommentRequestDto commentDto);
+        public Task<CommentDto?> UpdateAsync(int id, UpdateCommentRequestDto commentDto);
+        public Task<CommentDto?> DeleteAsync(int id);
     }
 }
