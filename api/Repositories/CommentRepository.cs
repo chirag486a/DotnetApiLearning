@@ -31,15 +31,15 @@ namespace api.Repositories
             if (comment == null) return null;
             return comment.ToCommentDto();
         }
-        public async Task<CommentDto> CreateAsync(CreateCommentRequestDto commentDto)
+        public async Task<CommentDto> CreateAsync(int stockId, CreateCommentRequestDto commentDto)
         {
-            Comment comment = commentDto.ToCommentFromCreateRequestDto();
+            Comment comment = commentDto.ToCommentFromCreateRequestDto(stockId);
+
             await _context.AddAsync(comment);
             await _context.SaveChangesAsync();
 
             return comment.ToCommentDto();
         }
-
         [HttpPut]
         [Route("{id}")]
 

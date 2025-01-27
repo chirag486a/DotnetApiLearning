@@ -18,9 +18,12 @@ namespace api.Controllers
     {
 
         private readonly ICommentRepository _commentRepo;
-        public CommentController(ICommentRepository commentRepo)
+        private readonly IStockRepository _stockRepo;
+
+        public CommentController(ICommentRepository commentRepo, IStockRepository stockRepo)
         {
             _commentRepo = commentRepo;
+            _stockRepo = stockRepo;
 
         }
 
@@ -46,10 +49,15 @@ namespace api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateCommentRequestDto commentDto)
+        [Route("{stockId}")]
+        public async Task<IActionResult> Create([FromRoute] int stockId, [FromBody] CreateCommentRequestDto commentDto)
         {
-            CommentDto comment = await _commentRepo.CreateAsync(commentDto);
-            return Ok(comment);
+            if (!await _stockRepo.ExistsAsync(stockId))
+            {
+                return BadRequest("Invalid stockId.");
+            }
+            CommentDto comment = await _commentRepo.CreateAsync(stockId, commentDto);
+            return CreatedAtAction(nameof(GetById), new { id = comment.Id }, comment);
         }
 
         [HttpDelete]

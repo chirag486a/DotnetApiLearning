@@ -7,6 +7,7 @@ using api.Dtos.Stock;
 using api.Interfaces.Repositories;
 using api.Mappers;
 using api.Models;
+using Azure.Messaging;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
