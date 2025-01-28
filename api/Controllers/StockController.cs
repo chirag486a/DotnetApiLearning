@@ -28,6 +28,10 @@ namespace api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            if (!ModelState.IsValid)
+            {
+                BadRequest(ModelState);
+            }
             List<StockDto> stocks = await _stockRepo.GetAllAsync();
             if (stocks == null)
             {
@@ -38,6 +42,10 @@ namespace api.Controllers
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+            {
+                BadRequest(ModelState);
+            }
             StockDto? stock = await _stockRepo.GetAsync(id);
 
             if (stock == null)
@@ -50,6 +58,10 @@ namespace api.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateStockRequestDto stockDto)
         {
+            if (!ModelState.IsValid)
+            {
+                BadRequest(ModelState);
+            }
             StockDto stockModel = await _stockRepo.CreateAsync(stockDto);
             if (stockModel == null)
             {
@@ -61,6 +73,10 @@ namespace api.Controllers
         [Route("{id:int}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateStockRequestDto updateDto)
         {
+            if (!ModelState.IsValid)
+            {
+                BadRequest(ModelState);
+            }
             StockDto? stockModel = await _stockRepo.UpdateAsync(id, updateDto);
 
             if (stockModel == null)
@@ -73,8 +89,13 @@ namespace api.Controllers
 
         [HttpDelete]
         [Route("{id:int}")]
+        // FIX: Delete all comments before deleting stock.
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+            {
+                BadRequest(ModelState);
+            }
             StockDto? stock = await _stockRepo.DeleteAsync(id);
 
             if (stock == null)
