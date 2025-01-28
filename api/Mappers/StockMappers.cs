@@ -17,7 +17,7 @@ namespace api.Mappers
                 Id = stockModel.Id,
                 Symbol = stockModel.Symbol,
                 CompanyName = stockModel.CompanyName,
-                Price = stockModel.Price,
+                Purchase = stockModel.Purchase,
                 LastDiv = stockModel.LastDiv,
                 Industry = stockModel.Industry,
                 MarketCap = stockModel.MarketCap,
@@ -30,7 +30,7 @@ namespace api.Mappers
             {
                 Symbol = stockDto.Symbol,
                 CompanyName = stockDto.CompanyName,
-                Price = stockDto.Price,
+                Purchase = stockDto.Purchase,
                 LastDiv = stockDto.LastDiv,
                 Industry = stockDto.Industry,
                 MarketCap = stockDto.MarketCap,
@@ -42,7 +42,7 @@ namespace api.Mappers
             {
                 Symbol = stockDto.Symbol,
                 CompanyName = stockDto.CompanyName,
-                Price = stockDto.Price,
+                Purchase = stockDto.Purchase,
                 LastDiv = stockDto.LastDiv,
                 Industry = stockDto.Industry,
                 MarketCap = stockDto.MarketCap,

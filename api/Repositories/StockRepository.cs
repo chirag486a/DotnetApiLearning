@@ -59,7 +59,7 @@ namespace api.Repositories
 
             existingStock.Symbol = stockModel.Symbol;
             existingStock.CompanyName = stockModel.CompanyName;
-            existingStock.Price = stockModel.Price;
+            existingStock.Purchase = stockModel.Purchase;
             existingStock.LastDiv = stockModel.LastDiv;
             existingStock.Industry = stockModel.Industry;
             existingStock.MarketCap = stockModel.MarketCap;

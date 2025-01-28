@@ -14,7 +14,7 @@ namespace api.Models
         public string CompanyName { get; set; } = string.Empty;
 
         [Column(TypeName = "decimal(18, 2)")]
-        public decimal Price { get; set; }
+        public decimal Purchase { get; set; }
 
         [Column(TypeName = "decimal(18, 2)")]
         public decimal LastDiv { get; set; }

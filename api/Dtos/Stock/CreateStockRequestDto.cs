@@ -18,7 +18,7 @@ namespace api.Dtos.Stock
 
         [Required]
         [Range(1, 100000000000)]
-        public decimal Price { get; set; }
+        public decimal Purchase { get; set; }
 
         [Required]
         [Range(0.00001, 100)]
