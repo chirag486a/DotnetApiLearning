@@ -56,7 +56,6 @@ namespace api.Repositories
 
             existingModel.Content = commentModel.Content;
             existingModel.Title = commentModel.Title;
-            existingModel.StockId = commentModel.StockId;
 
             await _context.SaveChangesAsync();
 
