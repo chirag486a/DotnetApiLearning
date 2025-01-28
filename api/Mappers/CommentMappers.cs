@@ -36,7 +36,6 @@ namespace api.Mappers
             {
                 Title = createModel.Title,
                 Content = createModel.Content,
-                StockId = createModel.StockId,
             };
         }
 
