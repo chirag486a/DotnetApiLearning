@@ -35,6 +35,24 @@ namespace api.Repositories
             {
                 stocks = stocks.Where(s => s.CompanyName.Contains(queryObj.CompanyName));
             }
+            if (!string.IsNullOrWhiteSpace(queryObj.SortBy))
+            {
+                if (queryObj.SortBy.Equals("Symbol", StringComparison.OrdinalIgnoreCase))
+                {
+                    stocks = queryObj.IsDecsending ? stocks.OrderByDescending(s => s.Symbol) : stocks.OrderBy(s => s.Symbol);
+                }
+
+                // FIX
+                if (queryObj.SortBy.Equals("MarketCap", StringComparison.OrdinalIgnoreCase))
+                {
+                    stocks = queryObj.IsDecsending ? stocks.OrderByDescending(s => s.MarketCap) : stocks.OrderBy(s => s.MarketCap);
+                }
+                // FIX
+                if (queryObj.SortBy.Equals("Purchase", StringComparison.OrdinalIgnoreCase))
+                {
+                    stocks = queryObj.IsDecsending ? stocks.OrderByDescending(s => s.Purchase) : stocks.OrderBy(s => s.Purchase);
+                }
+            }
 
             return [.. (await stocks.ToListAsync()).Select(s => s.ToStockDto())];
         }
