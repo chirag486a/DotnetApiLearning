@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
 using api.Dtos.Stock;
+using api.Helpers.QueryObj;
 using api.Interfaces.Repositories;
 using api.Mappers;
 using api.Models;
@@ -26,13 +27,13 @@ namespace api.Controllers
             _stockRepo = stockRepo;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] StockGetAllQueryObj queryObj)
         {
             if (!ModelState.IsValid)
             {
                 BadRequest(ModelState);
             }
-            List<StockDto> stocks = await _stockRepo.GetAllAsync();
+            List<StockDto> stocks = await _stockRepo.GetAllAsync(queryObj);
             if (stocks == null)
             {
                 return NotFound();

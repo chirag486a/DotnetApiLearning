@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
 using api.Dtos.Stock;
+using api.Helpers.QueryObj;
 using api.Interfaces.Repositories;
 using api.Mappers;
 using api.Migrations;
@@ -22,11 +23,20 @@ namespace api.Repositories
         }
 
 
-        public async Task<List<StockDto>> GetAllAsync()
+        public async Task<List<StockDto>> GetAllAsync(StockGetAllQueryObj queryObj)
         {
-            List<Stock> stocks = await _context.Stocks.Include(s => s.Comments).ToListAsync();
+            IQueryable<Stock> stocks = _context.Stocks.Include(s => s.Comments).AsQueryable();
 
-            return [.. stocks.Select(s => s.ToStockDto())];
+            if (!string.IsNullOrWhiteSpace(queryObj.Symbol))
+            {
+                stocks = stocks.Where(s => s.Symbol.Contains(queryObj.Symbol));
+            }
+            if (!string.IsNullOrWhiteSpace(queryObj.CompanyName))
+            {
+                stocks = stocks.Where(s => s.CompanyName.Contains(queryObj.CompanyName));
+            }
+
+            return [.. (await stocks.ToListAsync()).Select(s => s.ToStockDto())];
         }
         public async Task<StockDto?> GetAsync(int id)
         {
