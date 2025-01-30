@@ -26,6 +26,9 @@ namespace api.Repositories
         public async Task<List<StockDto>> GetAllAsync(StockGetAllQueryObj queryObj)
         {
             IQueryable<Stock> stocks = _context.Stocks.Include(s => s.Comments).AsQueryable();
+            int SkipNumber = Convert.ToInt32((queryObj.PageNumber - 1) * queryObj.PageSize);
+            int TakeNumber = Convert.ToInt32(queryObj.PageSize);
+            stocks = stocks.Skip(SkipNumber).Take(TakeNumber);
 
             if (!string.IsNullOrWhiteSpace(queryObj.Symbol))
             {
@@ -42,12 +45,10 @@ namespace api.Repositories
                     stocks = queryObj.IsDecsending ? stocks.OrderByDescending(s => s.Symbol) : stocks.OrderBy(s => s.Symbol);
                 }
 
-                // FIX
                 if (queryObj.SortBy.Equals("MarketCap", StringComparison.OrdinalIgnoreCase))
                 {
                     stocks = queryObj.IsDecsending ? stocks.OrderByDescending(s => s.MarketCap) : stocks.OrderBy(s => s.MarketCap);
                 }
-                // FIX
                 if (queryObj.SortBy.Equals("Purchase", StringComparison.OrdinalIgnoreCase))
                 {
                     stocks = queryObj.IsDecsending ? stocks.OrderByDescending(s => s.Purchase) : stocks.OrderBy(s => s.Purchase);
